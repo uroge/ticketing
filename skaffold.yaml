@@ -15,7 +15,7 @@ build:
           - src: 'tsconfig.json'
             dest: .
   local:
-    push: true # Important: EKS needs the image in ECR
+    push: false # IMPORTANT: do not push images to ECR for local dev
 deploy:
   kubectl:
     manifests:
