@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+build:
+  artifacts:
+    - image: auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+          - src: 'package.json'
+            dest: .
+          - src: 'tsconfig.json'
+            dest: .
+  local:
+    push: true # Important: EKS needs the image in ECR
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
